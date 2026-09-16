@@ -1,9 +1,11 @@
 import os
-from telegram import Update
+from telegram import Update, BotCommand
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "")
+
+# --- የትዕዛዞች ተግባራት (Functions) ---
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -79,8 +81,26 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "ችግር ካለ የChannel Admin ያግኙ።"
     )
 
+# --- ዋናው የቦት ማስጀመሪያ ክፍል (Main) ---
+
+async def post_init(application: Application):
+    # ይህ ክፍል የትዕዛዞችን ዝርዝር በቴሌግራም ሜኑ ላይ ያስቀምጣል
+    commands = [
+        BotCommand("start", "Start the bot and check status"),
+        BotCommand("help", "Show help and usage guide"),
+        BotCommand("join", "Join the channel"),
+        BotCommand("share", "Share the bot link"),
+        BotCommand("stats", "Check your statistics"),
+        BotCommand("referral", "Get your referral link"),
+        BotCommand("leaderboard", "View leaderboard"),
+        BotCommand("about", "About this bot"),
+        BotCommand("contact", "Contact admin"),
+        BotCommand("support", "Get support"),
+    ]
+    await application.bot.set_my_commands(commands)
+
 def main():
-    app = Application.builder().token(BOT_TOKEN).build()
+    app = Application.builder().token(BOT_TOKEN).post_init(post_init).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
