@@ -1,0 +1,21 @@
+app = "sudi-telegram-bot"
+primary_region = "ams"
+
+[build]
+
+[env]
+  BOT_TOKEN = "8973382330:AAGn_4ebt1aJ5caSJbIW-U8RKPBcV6w6R-o"
+  CHANNEL_USERNAME = "@infosphere1"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
