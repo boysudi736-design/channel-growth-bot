@@ -1,21 +1,27 @@
-app = "sudi-telegram-bot"
-primary_region = "ams"
+# fly.toml app configuration file generated for channel-growth-bot on 2026-09-17T22:04:09Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'channel-growth-bot'
+primary_region = 'ams'
 
 [build]
 
 [env]
-  BOT_TOKEN = "8973382330:AAGn_4ebt1aJ5caSJbIW-U8RKPBcV6w6R-o"
-  CHANNEL_USERNAME = "@infosphere1"
+  BOT_TOKEN = '8973382330:AAGn_4ebt1aJ5caSJbIW-U8RKPBcV6w6R-o'
+  CHANNEL_USERNAME = '@infosphere1'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = false
+  auto_stop_machines = 'off'
   auto_start_machines = true
   min_machines_running = 1
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  memory = "256mb"
-  cpu_kind = "shared"
+  memory = '256mb'
+  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 256
